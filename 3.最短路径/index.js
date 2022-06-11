@@ -63,7 +63,8 @@ function findShortestPath(startNode, endNode, graph) {
         console.log("==", node);
         for (const prop in graph[node]) {
             const newCost = costs[node] + graph[node][prop]
-            if (newCost < costs[prop]) {
+            // 如果这个节点还没有加入消费表中或者比原来的小
+            if (costs[prop] === undefined || newCost < costs[prop]) {
                 costs[prop] = newCost
                 parents[prop] = node
             }
@@ -84,4 +85,22 @@ function findShortestPath(startNode, endNode, graph) {
     return pathArr.reverse()
 }
 
-console.log("result", findShortestPath('start', 'end', graph));
+// console.log("result", findShortestPath('start', 'end', {
+//     start: {A: 5, B: 2},
+//     A: {C: 4, D: 2},
+//     B: {A: 8, D: 7},
+//     C: {end: 3, D: 6},
+//     D: {C: 6, end: 1},
+//     end: {}
+// }));
+
+console.log("result", findShortestPath('start', 'end', {
+    start: { A: 10 },
+    A: { C: 20 },
+    B: { A: 1},
+    C: { B: 1, end: 30},
+    end: {}
+}));
+
+
+console.log(1 > undefined);
